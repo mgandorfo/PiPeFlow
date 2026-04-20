@@ -1,23 +1,12 @@
-import { redirect } from 'next/navigation'
 import type { ReactNode } from 'react'
-import { createClient } from '@/lib/supabase/server'
 import { AppShell } from '@/components/layout/app-shell'
 import { Toaster } from '@/components/ui/sonner'
 
+// TODO M1-real: restaurar guard Supabase quando auth estiver configurado
 export default async function AppLayout({ children }: { children: ReactNode }) {
-  const supabase = createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
-  if (!user) redirect('/login')
-
   return (
     <>
-      <AppShell
-        userEmail={user.email ?? ''}
-        userName={user.user_metadata?.full_name ?? null}
-      >
+      <AppShell userEmail="demo@pipeflow.app" userName="Demo User">
         {children}
       </AppShell>
       <Toaster richColors position="top-right" />

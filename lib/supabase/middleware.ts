@@ -25,23 +25,9 @@ export async function updateSession(request: NextRequest) {
     }
   )
 
-  const { data: { user } } = await supabase.auth.getUser()
-
-  const pathname = request.nextUrl.pathname
-  const isAuthRoute = pathname.startsWith('/login') || pathname.startsWith('/signup') || pathname.startsWith('/forgot-password')
-  const isAppRoute = pathname.startsWith('/dashboard') || pathname.startsWith('/leads') || pathname.startsWith('/pipeline') || pathname.startsWith('/settings') || pathname.startsWith('/onboarding')
-
-  if (!user && isAppRoute) {
-    const url = request.nextUrl.clone()
-    url.pathname = '/login'
-    return NextResponse.redirect(url)
-  }
-
-  if (user && isAuthRoute) {
-    const url = request.nextUrl.clone()
-    url.pathname = '/dashboard'
-    return NextResponse.redirect(url)
-  }
+  // TODO M1-real: reabilitar guards quando Supabase estiver configurado
+  // const { data: { user } } = await supabase.auth.getUser()
+  // ... route guards aqui
 
   return supabaseResponse
 }
