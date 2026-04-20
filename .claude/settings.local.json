@@ -1,0 +1,43 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-next-app@14 . --typescript --tailwind --eslint --app --src-dir=no --import-alias=\"@/*\" --use-npm --yes)",
+      "Bash(cd /tmp)",
+      "Bash(npx create-next-app@14 pipeflow-temp --typescript --tailwind --eslint --app --src-dir=no --import-alias=\"@/*\" --use-npm --yes)",
+      "Bash(npx create-next-app@14 pipeflow-temp --typescript --tailwind --eslint --app --src-dir=no --import-alias=\"@/*\" --use-npm)",
+      "Bash(rsync -a --exclude=node_modules --exclude=.git /tmp/pipeflow-temp/ /c/PiPeFlow/)",
+      "Bash(cp -r /tmp/pipeflow-temp/. /c/PiPeFlow/ --exclude=.git)",
+      "Bash(cp /tmp/pipeflow-temp/package.json /c/PiPeFlow/)",
+      "Bash(cp /tmp/pipeflow-temp/package-lock.json /c/PiPeFlow/)",
+      "Bash(cp /tmp/pipeflow-temp/tsconfig.json /c/PiPeFlow/)",
+      "Bash(cp /tmp/pipeflow-temp/next.config.mjs /c/PiPeFlow/)",
+      "Bash(npm install *)",
+      "Bash(npx shadcn@latest init -d)",
+      "Bash(npx shadcn@latest add button input label card form toast dropdown-menu avatar separator --yes)",
+      "Bash(npx shadcn@latest add button input label card form sonner dropdown-menu avatar separator --yes)",
+      "Bash(npx shadcn@latest add form --yes)",
+      "Bash(npm run *)",
+      "Bash(npx shadcn@latest add button input label card form dropdown-menu avatar separator --yes)",
+      "Bash(git init *)",
+      "Bash(git add *)",
+      "Bash(git config *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git branch *)",
+      "Bash(gh auth *)",
+      "Bash(where gh *)",
+      "Read(//c/Program Files/GitHub CLI/**)",
+      "Read(//c/Users/marce/AppData/Local/Programs/GitHub CLI/**)",
+      "Bash(cmd /c \"where gh\")",
+      "Read(//c/Users/marce/AppData/Local/Programs//**)",
+      "Read(//c/Program Files//**)",
+      "Bash(winget install *)",
+      "Bash(export PATH=\"$PATH:/c/Program Files/GitHub CLI\")",
+      "Bash(gh --version)",
+      "Bash(gh repo *)",
+      "Bash(git push *)",
+      "Bash(git checkout *)",
+      "Bash(npx shadcn@latest add sheet badge skeleton sonner tooltip scroll-area --yes)",
+      "Bash(npx tsc *)"
+    ]
+  }
+}
