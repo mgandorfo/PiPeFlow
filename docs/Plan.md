@@ -22,6 +22,21 @@
 - [x] App shell: sidebar + layout autenticado (`app/(app)/layout.tsx`)
 - [x] Onboarding: criar primeiro workspace após signup
 
+### Aula 2.1 — Design System & App Shell
+- [x] Dark mode como padrão (`class="dark"` no root, CSS variables alinhadas com o design system)
+- [x] Font Inter configurada via `next/font`
+- [x] Tokens de stage do Kanban definidos em `globals.css`
+- [x] `WorkspaceSwitcher` com dados fake e dropdown de seleção (`components/layout/workspace-switcher.tsx`)
+- [x] Sidebar redesenhada: logo, workspace switcher, nav com estado ativo, perfil do usuário
+- [x] `TopBar` com título de página dinâmico e botão hamburger (`components/layout/top-bar.tsx`)
+- [x] `AppShell` client wrapper: gerencia Sheet mobile + layout `h-screen` (`components/layout/app-shell.tsx`)
+- [x] Sidebar vira menu hamburger no mobile via `Sheet` (fecha automaticamente ao navegar)
+- [x] `PageHeader` reutilizável: título + descrição + slot de ação (`components/layout/page-header.tsx`)
+- [x] `Toaster` (sonner) global no app layout
+- [x] Novos componentes shadcn instalados: `sheet`, `badge`, `skeleton`, `sonner`, `tooltip`, `scroll-area`
+- [x] Páginas placeholder com Skeleton layouts (`/dashboard`, `/leads`, `/pipeline`, `/settings`)
+- [x] Cores de erro nas páginas auth corrigidas para dark mode
+
 **Entregável:** Login → criação de workspace → sidebar vazia funcionando.
 
 ---
