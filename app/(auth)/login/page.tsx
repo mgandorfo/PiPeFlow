@@ -2,66 +2,132 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { useFormStatus } from 'react-dom'
-import { login } from '../actions'
+import { useRouter } from 'next/navigation'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
+import { Eye, EyeOff, Mail, Lock, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 
-function SubmitButton() {
-  const { pending } = useFormStatus()
-  return (
-    <Button type="submit" className="w-full" disabled={pending}>
-      {pending ? 'Entrando...' : 'Entrar'}
-    </Button>
-  )
-}
+const schema = z.object({
+  email: z.string().email('E-mail inválido'),
+  password: z.string().min(6, 'Senha deve ter pelo menos 6 caracteres'),
+})
+
+type FormData = z.infer<typeof schema>
 
 export default function LoginPage() {
-  const [error, setError] = useState<string | null>(null)
+  const router = useRouter()
+  const [showPassword, setShowPassword] = useState(false)
+  const [serverError, setServerError] = useState<string | null>(null)
 
-  async function handleSubmit(formData: FormData) {
-    setError(null)
-    const result = await login(formData)
-    if (result?.error) setError(result.error)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<FormData>({ resolver: zodResolver(schema) })
+
+  async function onSubmit(_data: FormData) {
+    setServerError(null)
+    // Fake auth — simula delay de rede
+    await new Promise((r) => setTimeout(r, 800))
+    router.push('/dashboard')
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Entrar</CardTitle>
-        <CardDescription>Acesse sua conta PipeFlow</CardDescription>
-      </CardHeader>
-      <form action={handleSubmit}>
-        <CardContent className="space-y-4">
-          {error && (
-            <div className="bg-red-950/50 text-red-400 text-sm p-3 rounded-lg border border-red-900">
-              {error}
-            </div>
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-2xl font-bold text-foreground">Entrar</h1>
+        <p className="text-muted-foreground text-sm mt-1">
+          Acesse sua conta PipeFlow
+        </p>
+      </div>
+
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
+        {serverError && (
+          <div className="bg-destructive/10 text-destructive text-sm p-3 rounded-lg border border-destructive/30">
+            {serverError}
+          </div>
+        )}
+
+        {/* E-mail */}
+        <div className="space-y-1.5">
+          <Label htmlFor="email">E-mail</Label>
+          <div className="relative">
+            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <Input
+              id="email"
+              type="email"
+              placeholder="voce@empresa.com"
+              className="pl-9"
+              aria-invalid={!!errors.email}
+              {...register('email')}
+            />
+          </div>
+          {errors.email && (
+            <p className="text-destructive text-xs">{errors.email.message}</p>
           )}
-          <div className="space-y-2">
-            <Label htmlFor="email">E-mail</Label>
-            <Input id="email" name="email" type="email" placeholder="voce@empresa.com" required />
-          </div>
-          <div className="space-y-2">
+        </div>
+
+        {/* Senha */}
+        <div className="space-y-1.5">
+          <div className="flex items-center justify-between">
             <Label htmlFor="password">Senha</Label>
-            <Input id="password" name="password" type="password" placeholder="••••••••" required />
-          </div>
-        </CardContent>
-        <CardFooter className="flex flex-col gap-3">
-          <SubmitButton />
-          <div className="text-sm text-center text-slate-500 space-y-1">
-            <Link href="/forgot-password" className="text-blue-600 hover:underline block">
+            <Link
+              href="/forgot-password"
+              className="text-xs text-blue-500 hover:underline"
+            >
               Esqueceu a senha?
             </Link>
-            <span>Não tem conta? </span>
-            <Link href="/signup" className="text-blue-600 hover:underline">
-              Criar conta grátis
-            </Link>
           </div>
-        </CardFooter>
+          <div className="relative">
+            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <Input
+              id="password"
+              type={showPassword ? 'text' : 'password'}
+              placeholder="••••••••"
+              className="pl-9 pr-10"
+              aria-invalid={!!errors.password}
+              {...register('password')}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((v) => !v)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+              aria-label={showPassword ? 'Esconder senha' : 'Mostrar senha'}
+            >
+              {showPassword ? (
+                <EyeOff className="w-4 h-4" />
+              ) : (
+                <Eye className="w-4 h-4" />
+              )}
+            </button>
+          </div>
+          {errors.password && (
+            <p className="text-destructive text-xs">{errors.password.message}</p>
+          )}
+        </div>
+
+        <Button type="submit" className="w-full" disabled={isSubmitting}>
+          {isSubmitting ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin" />
+              Entrando...
+            </>
+          ) : (
+            'Entrar'
+          )}
+        </Button>
       </form>
-    </Card>
+
+      <p className="text-sm text-center text-muted-foreground">
+        Não tem conta?{' '}
+        <Link href="/signup" className="text-blue-500 hover:underline font-medium">
+          Criar conta grátis
+        </Link>
+      </p>
+    </div>
   )
 }
