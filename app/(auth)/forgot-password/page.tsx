@@ -54,7 +54,7 @@ export default function ForgotPasswordPage() {
       <form action={handleSubmit}>
         <CardContent className="space-y-4">
           {error && (
-            <div className="bg-red-50 text-red-700 text-sm p-3 rounded-lg border border-red-200">
+            <div className="bg-red-950/50 text-red-400 text-sm p-3 rounded-lg border border-red-900">
               {error}
             </div>
           )}

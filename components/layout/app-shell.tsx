@@ -24,10 +24,14 @@ export function AppShell({ children, userEmail, userName }: AppShellProps) {
       <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
         <SheetContent
           side="left"
-          className="p-0 w-60 border-slate-800 bg-slate-900"
+          className="p-0 w-60 border-slate-800 bg-slate-900 [&>button]:hidden"
           aria-label="Menu de navegação"
         >
-          <SidebarContent userEmail={userEmail} userName={userName} />
+          <SidebarContent
+            userEmail={userEmail}
+            userName={userName}
+            onNavigate={() => setMobileOpen(false)}
+          />
         </SheetContent>
       </Sheet>
 

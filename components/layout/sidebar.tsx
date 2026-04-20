@@ -21,9 +21,10 @@ const NAV_ITEMS = [
 interface SidebarProps {
   userEmail: string
   userName: string | null
+  onNavigate?: () => void
 }
 
-export function SidebarContent({ userEmail, userName }: SidebarProps) {
+export function SidebarContent({ userEmail, userName, onNavigate }: SidebarProps) {
   const pathname = usePathname()
 
   const initials = userName
@@ -62,6 +63,7 @@ export function SidebarContent({ userEmail, userName }: SidebarProps) {
               <Link
                 key={href}
                 href={href}
+                onClick={onNavigate}
                 className={cn(
                   'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 group',
                   isActive
@@ -116,7 +118,7 @@ export function SidebarContent({ userEmail, userName }: SidebarProps) {
 export function Sidebar({ userEmail, userName }: SidebarProps) {
   return (
     <aside className="hidden md:flex w-60 flex-shrink-0 flex-col h-screen sticky top-0">
-      <SidebarContent userEmail={userEmail} userName={userName} />
+      <SidebarContent userEmail={userEmail} userName={userName} onNavigate={undefined} />
     </aside>
   )
 }
