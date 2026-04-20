@@ -37,6 +37,14 @@
 - [x] Páginas placeholder com Skeleton layouts (`/dashboard`, `/leads`, `/pipeline`, `/settings`)
 - [x] Cores de erro nas páginas auth corrigidas para dark mode
 
+### Aula 2.2 — Auth & Onboarding UI
+- [x] Layout split-screen nas páginas de auth: painel marketing escuro (headline + 3 bullets com ícones) + formulário à direita; mobile-only logo
+- [x] Login com `react-hook-form` + Zod: validação inline, ícones `Mail`/`Lock`, mostrar/esconder senha, link "Esqueceu a senha?" inline, loading spinner
+- [x] Signup com validação inline, ícone `User`, mostrar/esconder senha, indicador de força de senha em tempo real (4 níveis: fraca → forte)
+- [x] Onboarding movido para `/onboarding` (fora do AppShell), slug preview dinâmico com normalização de acentos
+- [x] Navegação fake (800ms delay): login → `/dashboard`, signup → `/onboarding` → `/dashboard`
+- [x] Guards de rota (middleware + app layout) desabilitados para modo fake, marcados com `TODO M1-real`
+
 **Entregável:** Login → criação de workspace → sidebar vazia funcionando.
 
 ---
