@@ -65,6 +65,18 @@
 
 **Entregável:** Criar lead → ver detalhe → registrar atividade na timeline.
 
+### Aula 2.3 — Gestão de Leads UI
+- [x] 12 leads brasileiros fake em `lib/data/leads.ts` (nome, e-mail, empresa, telefone, status, notas, atividades)
+- [x] Tipos `Lead`, `LeadStatus`, `Activity` exportados de `lib/data/leads.ts`
+- [x] `LeadStatusBadge` com 5 estados coloridos: Novo (slate), Contatado (blue), Qualificado (violet), Proposta (amber), Perdido (red)
+- [x] Listagem `/leads` com busca por nome/empresa/e-mail e filtro multi-select por status, estado vazio, contagem de resultados
+- [x] Sheet de criação/edição com validação Zod + react-hook-form, loading no submit, erro inline por campo
+- [x] Exclusão de lead via botão destrutivo no Sheet de edição
+- [x] Página de detalhe `/leads/[id]`: avatar, badge de status, info de contato, notas, botão Editar
+- [x] Timeline de atividades com ícones por tipo (ligação, e-mail, reunião, nota), form inline para registrar nova atividade
+- [x] Navegação fake: CRUD opera em estado local (React), sem Supabase — marcado para `M2-real`
+- [x] `select` e `textarea` shadcn instalados
+
 ---
 
 ## M3 — Pipeline Kanban
